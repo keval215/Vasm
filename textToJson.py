@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 import re
 
@@ -6,6 +6,10 @@ app = Flask(__name__)
 
 # Enable CORS for all routes
 CORS(app)
+
+@app.route('/')
+def home():
+    return render_template("index.html")
 
 def parse_event(text):
     event = {}
@@ -71,8 +75,11 @@ def parse_event(text):
 
     return {"error": "Event format not recognized"}
 
-@app.route('/parse-event', methods=['POST'])
+@app.route('/parse-event', methods=['GET', 'POST'])
 def parse_event_api():
+    if request.method == 'GET':
+        return jsonify({"message": "Use POST to send data to this endpoint"}), 405
+
     data = request.json
     if not data or 'text' not in data:
         return jsonify({"error": "Invalid input, 'text' key is required"}), 400

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Parser</title>
+</head>
+<body>
+    <h1>Welcome to Event Parser</h1>
+    <form id="eventForm">
+        <input type="text" id="eventInput" placeholder="Enter event text" required>
+        <button type="submit">Submit</button>
+    </form>
+    <div id="output"></div>
+    <script>
+        document.getElementById("eventForm").addEventListener("submit", async function(event) {
+            event.preventDefault();
+            const inputText = document.getElementById("eventInput").value;
+            const response = await fetch("/parse-event", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ text: inputText }),
+            });
+            const result = await response.json();
+            document.getElementById("output").innerText = JSON.stringify(result, null, 2);
+        });
+    </script>
+</body>
+</html>
