@@ -4,7 +4,7 @@ import re
 
 app = Flask(__name__)
 
-# Enable CORS for all routes
+
 CORS(app)
 
 @app.route('/')
