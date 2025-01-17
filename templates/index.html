@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Event Parser</title>
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-    <h1>Welcome to Event Parser</h1>
+    <h1>CLUB DUELZ </h1>
     <form id="eventForm">
         <input type="text" id="eventInput" placeholder="Enter event text" required>
         <button type="submit">Submit</button>
@@ -26,6 +27,25 @@
             const result = await response.json();
             document.getElementById("output").innerText = JSON.stringify(result, null, 2);
         });
+        const pixelBackground = document.createElement('div');
+        pixelBackground.classList.add('pixel-background');
+        document.body.appendChild(pixelBackground);
+        const starsContainer = document.createElement('div');
+        starsContainer.classList.add('stars');
+        document.body.appendChild(starsContainer);
+    
+        const numStars = 100;
+        for (let i = 0; i < numStars; i++) {
+            const star = document.createElement('div');
+            star.classList.add('star');
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 5 + 's';
+            starsContainer.appendChild(star);
+        }
     </script>
+    
+    
+    
 </body>
 </html>

@@ -1,0 +1,115 @@
+/* Retro Space Game Background */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Press Start 2P', cursive;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    background: black; /* Fallback black */
+    color: #fdfdfd;
+    position: relative;
+}
+
+/* Star Animation */
+@keyframes star-twinkle {
+    0% {
+        opacity: 0.5;
+        transform: translateY(0) scale(1);
+    }
+    50% {
+        opacity: 1;
+        transform: translateY(-10px) scale(1.2);
+    }
+    100% {
+        opacity: 0.5;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.stars {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    animation: star-twinkle 3s infinite;
+}
+
+.star:nth-child(odd) {
+    animation-duration: 2s;
+}
+
+.star:nth-child(even) {
+    animation-duration: 4s;
+}
+
+/* Center Title */
+h1 {
+    font-size: 2.5rem;
+    color:  #4450d2;
+    text-shadow: 3px 3px 0 #333;
+    margin-bottom: 30px;
+}
+
+/* Form Styling */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+input, button {
+    font-size: 1rem;
+    font-family: 'Press Start 2P', cursive;
+    padding: 10px 20px;
+    border: 2px solid #4450d2;
+    background-color: transparent;
+    color: #6489f6;
+    outline: none;
+    text-align: center;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+input::placeholder {
+    color: #888;
+}
+
+button:hover {
+    background-color: #5748fd;
+    color: #333;
+}
+
+/* JSON Output Box */
+#output {
+     margin-top: 30px;
+    padding: 20px;
+    width: 30%;
+    background: rgba(50, 50, 50, 0.9); /* Dark grey background */
+    border: 2px solid #666;
+    color: #d3d3d3;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1rem;
+    white-space: pre-wrap;
+    overflow: auto;
+    border-radius: 8px;
+    text-shadow: 1px 1px 0 #333; /* Dark grey shadow */
+}
+
+/* Retro Pixel Font */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
