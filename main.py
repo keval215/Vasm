@@ -1,6 +1,8 @@
 from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 import re
+from rapidfuzz import fuzz
+from normalize import normalize_text
 
 app = Flask(__name__)
 
@@ -11,10 +13,20 @@ CORS(app)
 def home():
     return render_template("index.html")
 
+
+def is_similar(word, candidates, threshold=80):
+    for candidate in candidates:
+        if fuzz.ratio(word, candidate) > threshold:
+            return candidate
+    return word
+
+# Event parsing
 def parse_event(text):
     event = {}
-    text = text.lower().strip()
+    text = normalize_text(text.lower().strip())
+    text = " ".join([is_similar(word, ["foul", "substituted", "goal", "saved", "defended", "assisted"]) for word in text.split()])
 
+    # Goal event
     goal_pattern = r"(own goal by (\w+))|(goal by (\w+)( penalty)?( assisted by (\w+))?)"
     goal_match = re.match(goal_pattern, text)
 
@@ -36,6 +48,7 @@ def parse_event(text):
 
         return event
 
+    # Substitution event
     sub_pattern = r"(\w+) (substituted|sub) (\w+)"
     sub_match = re.match(sub_pattern, text)
 
@@ -45,18 +58,18 @@ def parse_event(text):
         event['player_out'] = sub_match.group(3).capitalize()
         return event
 
-    foul_pattern = r"foul (red|yellow|none)? card? by (\w+)"
+    # Foul event
+    foul_pattern = r"foul(?: (red|yellow|none))?(?: card)? by (\w+)"
     foul_match = re.match(foul_pattern, text)
 
     if foul_match:
         event['type'] = 'foul'
         event['foul_by'] = foul_match.group(2).capitalize()
-
         card_type = foul_match.group(1) if foul_match.group(1) else 'none'
-        event['card'] = f'{card_type.capitalize()} card' if card_type != 'none' else 'none'
-
+        event['card'] = card_type
         return event
 
+    # Defended event
     defended_pattern = r"defended by (\w+)"
     defended_match = re.match(defended_pattern, text)
 
@@ -65,6 +78,7 @@ def parse_event(text):
         event['defender'] = defended_match.group(1).capitalize()
         return event
 
+    # Saved event
     saved_pattern = r"saved by (\w+)"
     saved_match = re.match(saved_pattern, text)
 
