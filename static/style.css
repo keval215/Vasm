@@ -10,11 +10,11 @@ body {
     height: 100vh;
     overflow: hidden;
     background: black; /* Fallback black */
-    color: #fdfdfd;
+    color: #4a6bfc;
     position: relative;
 }
 
-/* Star Animation */
+
 @keyframes star-twinkle {
     0% {
         opacity: 0.5;
@@ -57,20 +57,38 @@ body {
     animation-duration: 4s;
 }
 
-/* Center Title */
+
+
+
+.pixel-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/static/image1.svg');
+    background-repeat: repeat;
+    opacity: 0.1;
+    z-index: -1;
+}
+
+
 h1 {
     font-size: 2.5rem;
     color:  #4450d2;
     text-shadow: 3px 3px 0 #333;
     margin-bottom: 30px;
+    position: relative;
+    z-index: 1;
 }
 
-/* Form Styling */
 form {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
+    position: relative;
+    z-index: 1;
 }
 
 input, button {
@@ -78,8 +96,8 @@ input, button {
     font-family: 'Press Start 2P', cursive;
     padding: 10px 20px;
     border: 2px solid #4450d2;
-    background-color: transparent;
-    color: #6489f6;
+    background-color: rgba(0, 0, 0, 0.5); /* Transparent black background */
+    color: #547cf3;
     outline: none;
     text-align: center;
     border-radius: 5px;
@@ -91,16 +109,15 @@ input::placeholder {
 }
 
 button:hover {
-    background-color: #5748fd;
+    background-color: #574cd0;
     color: #333;
 }
 
-/* JSON Output Box */
 #output {
-     margin-top: 30px;
+    margin-top: 30px;
     padding: 20px;
     width: 30%;
-    background: rgba(50, 50, 50, 0.9); /* Dark grey background */
+    background: rgba(50, 50, 50, 0.9); 
     border: 2px solid #666;
     color: #d3d3d3;
     font-family: 'Courier New', Courier, monospace;
@@ -108,8 +125,8 @@ button:hover {
     white-space: pre-wrap;
     overflow: auto;
     border-radius: 8px;
-    text-shadow: 1px 1px 0 #333; /* Dark grey shadow */
+    text-shadow: 1px 1px 0 #333;
 }
 
-/* Retro Pixel Font */
+
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
